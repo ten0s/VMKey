@@ -81,6 +81,11 @@ HIDCODE = [
         ('KEY_DELETE', '0x4c', [('', [])]),
         ('CTRL_ALT_DEL', '0x4c', [('', ['CTRL', 'ALT'])]),
         ('CTRL_C', '0x06', [('', ['CTRL'])]),
+
+        ('KEY_RIGHT', '0x4f', [('', [])]),
+        ('KEY_LEFT', '0x50', [('', [])]),
+        ('KEY_DOWN', '0x51', [('', [])]),
+        ('KEY_UP', '0x52', [('', [])]),
     ]
 
 def key_to_hid(input_key):
@@ -130,7 +135,7 @@ def get_vm(arguments):
     try:
         virtual_machine = None
         socket.setdefaulttimeout(arguments.timeout)
-        esxi = connect.SmartConnectNoSSL(host=arguments.host, user=arguments.username, pwd=arguments.password, port=arguments.port)
+        esxi = connect.SmartConnect(host=arguments.host, user=arguments.username, pwd=arguments.password, port=arguments.port, disableSslCertValidation=True)
         atexit.register(connect.Disconnect, esxi)
         entity_stack = esxi.content.rootFolder.childEntity
         while entity_stack:
